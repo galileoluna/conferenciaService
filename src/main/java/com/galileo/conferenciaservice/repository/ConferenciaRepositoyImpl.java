@@ -22,17 +22,17 @@ public class ConferenciaRepositoyImpl implements ConferenciaRepository{
     private final SimpleJdbcInsert simpleJdbcInsert;
 
 
-    private final String queryfindById="SELECT * FROM conferencias WHERE id = ?";
+    private final String queryfindById="SELECT * FROM conferencias WHERE id_evento = ?";
     private final String queryfindall="SELECT * FROM conferencias";
-    private final String queryUpdate="UPDATE conferencias SET nombre = ?, descripcion = ?, horadeinicio = ?,  horadefinalizacion = ? WHERE id = ?";
+    private final String queryUpdate="UPDATE conferencias SET nombre = ?, descripcion = ?, horadeinicio = ?,  horadefinalizacion = ? WHERE id_evento = ?";
 
     public ConferenciaRepositoyImpl(JdbcTemplate jdbcTemplate, DataSource dataSource) {
         this.jdbcTemplate = jdbcTemplate;
 
         // Build a SimpleJdbcInsert object from the specified data source
         this.simpleJdbcInsert = new SimpleJdbcInsert(dataSource)
-                .withTableName("products")
-                .usingGeneratedKeyColumns("id");
+                .withTableName("conferencias")
+                .usingGeneratedKeyColumns("id_evento");
     }
 
     @Override
@@ -102,6 +102,6 @@ public class ConferenciaRepositoyImpl implements ConferenciaRepository{
 
     @Override
     public boolean delete(Integer id) {
-        return jdbcTemplate.update("DELETE FROM products WHERE id = ?", id) == 1;
+        return jdbcTemplate.update("DELETE FROM conferencias WHERE id_evento = ?", id) == 1;
     }
 }
